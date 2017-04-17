@@ -1,0 +1,954 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>莞外欣欣向荣</title>
+    <link rel="stylesheet" href="css/example.css" />
+    <!--<link rel="stylesheet" href="css/jquery-weui.css"/>-->
+    <link rel="stylesheet" href="css/weui.min.css" />
+    <link rel="stylesheet" href="css/my-weui.css"/>
+    
+</head>
+<body ontouchstart>
+<div class="container" id="container">
+ 	 <script type="text/html" id="tpl_home">
+ 	 <div class="page">
+ 	<div class="page home js_show">
+ 	<div class="page__hd">
+ 		<a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                    <div class="weui-media-box__hd">
+                        <img class="weui-media-box__thumb" src="img/guanwaixinxinxiangrong.jpg" alt="">
+                    </div>
+                <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">莞外欣欣向荣</h4>
+                    </div>
+                </a>
+ 		
+        <p class="page__desc">今天是<span id="currentDate"></span>，距离高考还有<span id="diffDate"></span>天</p>
+    </div>
+    <div class="page__bd page__bd_spacing">
+        <ul>
+            <li class="">
+                <div class="weui-flex js_category">
+                    <p class="weui-flex__item">成绩分析</p>
+                    <img src="./images/icon_nav_form.png" alt="">
+                </div>
+                <div class="page__category js_categoryInner" data-height="220" style="">
+                    <div class="weui-cells page__category-content">
+                        <a class="weui-cell weui-cell_access scoreAnalyze" data-id="ScoreAnalyze" data-type="退步最大十名" href="javascript:;">
+                            <div class="weui-cell__bd">
+                                <p>退步最大十名</p>
+                            </div>
+                            <div class="weui-cell__ft"></div>
+                        </a>
+                        <a class="weui-cell weui-cell_access scoreAnalyze" data-id="ScoreAnalyze" data-type="进步最大十名" href="javascript:;">
+                            <div class="weui-cell__bd">
+                                <p>进步最大十名</p>
+                            </div>
+                            <div class="weui-cell__ft"></div>
+                        </a>
+                        <a class="weui-cell weui-cell_access scoreAnalyze" data-id="ScoreAnalyze" data-type="年级前30统计" href="javascript:;">
+                            <div class="weui-cell__bd">
+                                <p>年级前30统计</p>
+                            </div>
+                            <div class="weui-cell__ft"></div>
+                        </a>
+                        <a class="weui-cell weui-cell_access scoreAnalyze" data-id="ScoreAnalyze" data-type="单科退步最大" href="javascript:;">
+                            <div class="weui-cell__bd">
+                                <p>单科退步最大</p>
+                            </div>
+                            <div class="weui-cell__ft"></div>
+                        </a>
+                        <a class="weui-cell weui-cell_access scoreAnalyze" data-id="ScoreAnalyze" data-type="年级前20统计" href="javascript:;">
+                            <div class="weui-cell__bd">
+                                <p>年级前20统计</p>
+                            </div>
+                            <div class="weui-cell__ft"></div>
+                        </a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="">
+                <div class="weui-flex js_category">
+                    <p class="weui-flex__item">学生成绩查询</p>
+                    <img src="./images/icon_nav_search.png" alt="">
+                </div>
+                <div class="page__category js_categoryInner">
+                    <div class="weui-cells page__category-content">
+                            <div class="weui-cell weui-cell_access js_item" data-id="searchbar" href="javascript:;">
+                                <p>历史成绩查询</p>
+                            </div>
+                            <div class="weui-cell__ft"></div>
+                        </a>
+                    </div>
+                </div>
+            </li>
+            
+            <li class="">
+                 <div class="weui-flex js_category">
+                    <p class="weui-flex__item">学校通知</p>
+                    <img src="./images/icon_nav_z-index.png" alt="">
+                </div>
+                <div class="page__category js_categoryInner">
+                    <div class="weui-cells page__category-content">
+                            <div class="weui-cell weui-cell_access js_item" data-id="SendMessage" href="javascript:;">
+                                <p>模板消息</p>
+                            </div>
+                            <div class="weui-cell__ft"></div>
+                        </a>
+                    </div>
+                    
+                    <div class="weui-cells page__category-content">
+                            <div class="weui-cell weui-cell_access js_item" data-id="SendMessage" href="javascript:;">
+                                <p>群发消息</p>
+                            </div>
+                            <div class="weui-cell__ft"></div>
+                        </a>
+                    </div>
+                    
+                </div>
+                
+            </li>
+        </ul>
+    </div>
+   </div> 
+ </div>
+</div>
+</script>
+</body>
+<script src="js/zepto.min.js"></script>
+<!--<script src="js/iscroll.js"></script>-->
+<script src="js/example.js"></script>
+<!--<script src="js/jquery.jsonp-2.4.0.min.js"></script>-->
+<script src="js/template.js"></script>
+<script src="js/tools.js"></script>
+<script src="js/jquery-weui.js"></script>
+<script src="js/fastclick.js"></script>
+<script src="js/echarts.common.min.js"></script>
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+
+<script type="text/javascript" class="home js_show">
+/*	$(document).ready(function(){ 
+		  var myscroll=new iScroll("wrapper",{hScrollbar:false, vScrollbar:false});
+	}); */
+
+    $(function(){
+    FastClick.attach(document.body);
+    $('#currentDate').html(getCurrentDateStr());	
+	$('#diffDate').html('<font color="red" size="6" >'+diffDays()+'</font>');
+    	
+        var winH = $(window).height();
+        var categorySpace = 10;
+
+        $('.js_item').on('click', function(){
+            var id = $(this).data('id');
+            window.pageManager.go(id);
+        });
+        $('.js_category').on('click', function(){
+            var $this = $(this),
+                $inner = $this.next('.js_categoryInner'),
+                $page = $this.parents('.page'),
+                $parent = $(this).parent('li');
+            var innerH = $inner.data('height');
+            bear = $page;
+
+            if(!innerH){
+                $inner.css('height', 'auto');
+                innerH = $inner.height();
+                $inner.removeAttr('style');
+                $inner.data('height', innerH);
+            }
+
+            if($parent.hasClass('js_show')){
+                $parent.removeClass('js_show');
+            }else{
+                $parent.siblings().removeClass('js_show');
+
+                $parent.addClass('js_show');
+                if(this.offsetTop + this.offsetHeight + innerH > $page.scrollTop() + winH){
+                    var scrollTop = this.offsetTop + this.offsetHeight + innerH - winH + categorySpace;
+
+                    if(scrollTop > this.offsetTop){
+                        scrollTop = this.offsetTop - categorySpace;
+                    }
+
+                    $page.scrollTop(scrollTop);
+                }
+            }
+        });
+	
+		 $('.scoreAnalyze').on('click', function(){
+		 	var type = $(this).data('type');
+		 	$scoreAnalyze = $(this);
+		 	scoreAnalyze(type,$scoreAnalyze);
+		 });
+	
+    });
+</script>
+
+<script type="text/html" id="tpl_ScoreAnalyzeMode_diffRank">
+<div class="page">
+	<div class="page__hd">
+        <h1 class="page__title">成绩分析</h1>
+        <p class="page__desc">{{type}}</p>
+    </div>
+    <table class="weui-table weui-table-td weui-table-tr">
+	<tr class ="weui-table-tr weui-table-td"> 
+		    <td>学生</td>
+		    <td>当前</td>
+		    <td>上期</td>
+		    <td>差值</td>
+		    <td>薄弱</td>
+	</tr>
+	{{each list as value i}}
+	<tr class ="weui-table-tr">
+	<td class="weui-table-td">
+	 <div class='weui_cell'>
+	 	<div class='weui_cell_bd weui_cell_primary'>
+	 		{{value.studentName}}
+	 	</div>
+	 </div>	
+	 </td>
+	 
+	 <td class="weui-table-td">
+	 <div class='weui_cell'>
+	 	<div class='weui_cell_bd weui_cell_primary'>
+	 		 {{value.currentRank}}
+	 	</div>
+	 </div>	
+	 </td>
+	 
+	 <td class="weui-table-td">
+	 <div class='weui_cell'>
+	 	<div class='weui_cell_bd weui_cell_primary'>
+	 		 {{value.lastRank}}
+	 	</div>
+	 </div>	
+	 </td>
+	 
+	 <td class="weui-table-td">
+	 <div class='weui_cell'>
+	 	<div class='weui_cell_bd weui_cell_primary'>
+	 		 {{value.diffRank}}
+	 	</div>
+	 </div>	
+	 </td>
+	 
+	 <td class="weui-table-td">
+	 <div class='weui_cell'>
+	 	<div class='weui_cell_bd weui_cell_primary'>
+	 		 {{value.subject}}
+	 	</div>
+	 </div>	
+	 </td>
+	 
+	 </tr>
+	 
+	{{/each}}
+    </table>
+</div>
+</script>
+
+<script type="text/html" id="tpl_ScoreAnalyzeMode_totalRank">
+<div class="page">
+	<div class="page__hd">
+        <h1 class="page__title">成绩分析</h1>
+        <p class="page__desc">{{type}}</p>
+    </div>
+    <table class="weui-table weui-table-td weui-table-tr">
+	<tr>
+		    <td>学生</td>
+		    <td>当前</td>
+		    <td>次数</td>
+		    <td>薄弱</td>
+	</tr>
+	{{each list as value i}}
+	<tr>
+	<td>
+	 <div class='weui_cell'>
+	 	<div class='weui_cell_bd weui_cell_primary'>
+	 		{{value.studentName}}
+	 	</div>
+	 </div>	
+	 </td>
+	
+	<td>
+	 <div class='weui_cell'>
+	 	<div class='weui_cell_bd weui_cell_primary'>
+	 		 {{value.currentRank}}
+	 	</div>
+	 </div>	
+	 </td>
+	 
+	 <td>
+	 <div class='weui_cell'>
+	 	<div class='weui_cell_bd weui_cell_primary'>
+	 		 {{value.count}}
+	 	</div>
+	 </div>	
+	 </td>
+	 
+	 <td>
+	 <div class='weui_cell'>
+	 	<div class='weui_cell_bd weui_cell_primary'>
+	 		 {{value.subject}}
+	 	</div>
+	 </div>	
+	 </td>
+	 
+	 </tr>
+	 
+	{{/each}}
+    </table>
+</div>
+</script>
+
+<script type="text/html" id="tpl_ScoreAnalyze">
+</script>
+
+<script type="text/html" id="tpl_SendMessage">
+<div class="page">
+    <div class="weui-cells__title">消息内容：</div>
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <textarea class="weui-textarea" placeholder="请输入文本" rows="12"></textarea>
+                    <div class="weui-textarea-counter"><span id="countletter">0</span>/176</div>
+                </div>
+            </div>
+        </div>
+        <a class="weui-cell weui-cell_access noticeAdvancePorperties" data-id="noticeAdvancePorperties" href="javascript:;">
+                <div class="weui-cell__bd">
+                    <p>高级选项</p>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+        </a>
+        <div class="weui-btn-area">
+            <a class="weui-btn weui-btn_primary" href="javascript:" id="preSendMsg">预览</a>
+        </div> 
+        
+    	<div class="weui-btn-area">
+            <a class="weui-btn weui-btn_primary" href="javascript:" id="sendMsg">发送</a>
+        </div>
+        <div class="js_dialog" id="iosDialog1" style="display: none;">
+            <div class="weui-mask"></div>
+            <div class="weui-dialog">
+                <div class="weui-dialog__hd"><strong class="weui-dialog__title">发送</strong></div>
+                <div class="weui-dialog__bd">请检查是否预览，然后确认发送</div>
+                <div class="weui-dialog__ft">
+                    <a href="javascript:;" id="cancelSend" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+                    <a href="javascript:;" id="comfirmSend" class="weui-dialog__btn weui-dialog__btn_primary">确认</a>
+                </div>
+            </div>
+        </div>
+        
+    <div class="page__ft">
+        <a href="javascript:home()"><img src="./images/icon_footer_link.png"></a>
+    </div>
+</div>
+<script type="text/javascript">
+		$(function(){
+			if(localStorage.noticeContent)
+			{
+				$(".weui-textarea").val(localStorage.noticeContent);
+    			$("#countletter").html(localStorage.noticeContent.length);
+			}
+		});
+		$(".weui-textarea").keyup(function() { 
+    	var text=$(this).val(); 
+    	var counter=text.length; 
+    	$("#countletter").html(counter);
+		if(counter>176)	
+		{
+			alert("超过通知内容最大字数限制");
+		}
+		localStorage.noticeContent = text;
+		});
+		$('.noticeAdvancePorperties').on('click', function(){
+			var id=$(this).data("id");
+			window.pageManager.go(id);
+		});
+        
+		$('#preSendMsg').on('click', function(){
+			var msgContent = $(".weui-textarea").val();
+			if(checkStrIsNullOrNot(localStorage.author)||checkStrIsNullOrNot(localStorage.school)||checkStrIsNullOrNot(localStorage.noticeTitle))
+			{
+    	         $.toast("通知配置出错", "cancel");
+    	         return;
+			}
+			if(msgContent.trim().length==0)
+			{
+    	         $.toast("不能发送空消息", "cancel");
+    	         return;
+			}
+			
+			var message={
+				first:localStorage.noticeTitle,
+				keyword1:localStorage.school,
+				keyword2:localStorage.author,
+				keyword3:getCurrentDateStr(),
+				keyword4:msgContent,
+				remark:localStorage.noticeRemark,
+				url:localStorage.noticeRemarkUrl
+			};
+			console.log(message);
+			sendPreMsg(message);
+		});
+/*		
+		$('#dialogs').on('click', '.weui-dialog__btn', function(){
+            $(this).parents('.js_dialog').fadeOut(200);
+        });*/
+        
+		$('#sendMsg').on('click', function(){
+			$('#iosDialog1').fadeIn(200);
+		});
+		
+		$('#cancelSend').on('click', function(){
+			$('#iosDialog1').fadeOut(200);
+		});
+		
+		$('#comfirmSend').on('click', function(){
+			$('#iosDialog1').fadeOut(200);
+			var msgContent = $(".weui-textarea").val();
+			if(checkStrIsNullOrNot(localStorage.author)||checkStrIsNullOrNot(localStorage.school)||checkStrIsNullOrNot(localStorage.noticeTitle))
+			{
+    	         $.toast("通知配置出错", "cancel");
+    	         return;
+			}
+			if(msgContent.trim().length==0)
+			{
+    	         $.toast("不能发送空消息", "cancel");
+    	         return;
+			}
+			
+			var message={
+				first:localStorage.noticeTitle,
+				sendto:localStorage.sendto,
+				keyword1:localStorage.school,
+				keyword2:localStorage.author,
+				keyword3:getCurrentDateStr(),
+				keyword4:msgContent,
+				remark:localStorage.noticeRemark,
+				url:localStorage.noticeRemarkUrl
+			};
+			console.log(message);
+			sendMsg(message);
+			localStorage.noticeContent = "";
+			localStorage.noticeRemark="";
+			localStorage.noticeRemarkUrl="";
+			
+		});
+		
+		function sendMsg(message)
+        {
+        	 messageJSON = JSON.stringify(message);
+        	 url ="/jeewx/noticeController.do?sendNotice&message="+messageJSON;
+        	 $.showLoading("发送中");
+			 $.ajax(
+			 {
+			 	type: 'POST',
+			 	data: message ,
+			 	url:url,
+			 	success:function(data) 
+			 	{
+			 		$.hideLoading();
+				 	$.toast("发送成功", "ok");
+				 	return;
+			 	}
+			 });
+		}
+		
+		function sendPreMsg(message)
+        {
+        	 $.showLoading("发送中");
+        	 messageJSON = JSON.stringify(message);
+        	 url ="/jeewx/noticeController.do?sendPreNotice&message="+messageJSON;
+			 $.ajax(
+			 {
+			 	type: 'POST',
+			 	data: message ,
+			 	url:url,
+			 	success:function(data) 
+			 	{
+			 		$.hideLoading();
+				 	$.toast("发送成功", "ok");
+				 	return;
+			 	}
+			 });
+		}	 
+</script>
+</script>
+
+<script type="text/html" id="tpl_searchbar">
+<div class="page">
+    <div class="page__bd">
+        <div class="weui-search-bar" id="searchBar">
+            <form class="weui-search-bar__form">
+                <div class="weui-search-bar__box" style="width: auto;height: auto;">
+                    <i class="weui-icon-search"></i>
+                    <input type="search" class="weui-search-bar__input" id="searchInput" placeholder="搜索" required/>
+                    <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+                </div>
+                <label class="weui-search-bar__label" id="searchText">
+                    <i class="weui-icon-search"></i>
+                    <span>搜索</span>
+                </label>
+            </form>
+            <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+        </div>
+        <div class="weui-cells searchbar-result" id="searchResult">
+        </div>
+    </div>
+    <div class="page__ft">
+        <a href="javascript:home()"><img src="./images/icon_footer_link.png" /></a>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        var $searchBar = $('#searchBar'),
+            $searchResult = $('#searchResult'),
+            $searchText = $('#searchText'),
+            $searchInput = $('#searchInput'),
+            $searchClear = $('#searchClear'),
+            $searchCancel = $('#searchCancel');
+
+        function hideSearchResult(){
+            $searchResult.hide();
+            $searchInput.val('');
+        }
+        function cancelSearch(){
+            hideSearchResult();
+            $searchBar.removeClass('weui-search-bar_focusing');
+            $searchText.show();
+        }
+
+        $searchText.on('click', function(){
+            $searchBar.addClass('weui-search-bar_focusing');
+            $searchInput.focus();
+        });
+        $searchInput
+            .on('blur', function () {
+                if(!this.value.length) cancelSearch();
+            })
+            .on('input', function(){
+                if(this.value.length) {
+                	searchStudent(this.value);
+                    $searchResult.show();
+                } else {
+                    $searchResult.hide();
+                }
+            })
+        ;
+        $searchClear.on('click', function(){
+            hideSearchResult();
+            $searchInput.focus();
+        });
+        $searchCancel.on('click', function(){
+            cancelSearch();
+            $searchInput.blur();
+        });
+        
+        function searchStudent(studentName)
+        {
+        	 if (studentName.match(/[^\u4e00-\u9fa5]/g)) 
+        	 {
+        	 	return false ;
+        	 }
+        	 url ="/jeewx/studentController.do?searchStudent&studentName="+studentName+"&callback=?";
+			 $.getJSON(url,
+			 function(data)
+			 {
+			 	if(data.length!=0)
+			 	{
+			 		var params = {list:data};
+			 		var html = template('searchResultMode', params);
+			 		$searchResult.html(html);
+			 	}
+			 });
+        }
+    });
+</script>
+</script>
+
+<script type="text/html" id="tpl_noticeAdvancePorperties">
+	<div class="page">
+	    <div class="page__hd">
+        <h1 class="page_title">高级选项</h1>	
+        </div>
+        <div class="page__bd">
+        <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">通知标题：</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" id="noticeTitle" type="text" placeholder="请输入通知标题">
+                </div>
+        </div>
+        <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">通知人：</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" id="author" value="张老师" type="text" placeholder="请输入通知人">
+                </div>
+        </div>
+        
+        <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">学校：</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" id="school" value="东莞外国语学校" type="text" placeholder="请输入学校名称">
+                </div>
+        </div>
+        
+				<div class="weui-cell weui-cell_select weui-cell_select-after">
+                	<div class="weui-cell__hd">
+                    	<label for="" class="weui-label">发送对象：</label>
+                	</div>
+                	<div class="weui-cell__bd">
+                    	<select class="weui-select" name="select2" id="sendto">
+                        	<option value="绑定用户">绑定用户</option>
+                        	<option value="关注用户">关注用户</option>
+                    	</select>
+                	</div>
+            	</div>
+            	
+<!--				<div class="weui-cell weui-cell_access weui-cell__hd">
+        			<div class="weui-cell__hd"><label for="name" class="weui-label">发送对象：</label></div>
+       	 			<div class="weui-cell__bd">
+          			<input class="weui-input" id="sendto" type="text" value="" readonly="">
+        			</div>
+        			<div class="weui-cell__ft">详情</div>	
+      			</div>-->
+      			
+      			<div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">备注</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" id="remark" value="" type="text" placeholder="请输入备注">
+                </div>
+        		</div>
+        
+		        <div class="weui-cell">
+		                <div class="weui-cell__hd"><label class="weui-label">附件：</label></div>
+		                <div class="weui-cell__bd">
+		                    <input class="weui-input" id="remarkurl" type="url" placeholder="请输入附件的url地址">
+		                </div>
+		        </div>      
+
+            	
+        </div>
+        <label for="weuiAgree" class="weui-agree">
+            <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox">
+            <span class="weui-agree__text">
+                	是否需要消息回折
+            </span>
+        </label>
+        <a href="javascript:;" class="weui-btn weui-btn_primary" id="saveProperties">保存配置</a>
+        </div>
+	</div>
+<script type="text/javascript">
+	$(function(){
+		$(".weui-select").val(localStorage.msgmode);
+		$("#noticeTitle").val(localStorage.noticeTitle);
+		$("#sendto").val(localStorage.sendto);
+		$("#author").val(localStorage.author);
+		$("#school").val(localStorage.school);
+		$("#weuiAgree").val(localStorage.weuiAgree);
+	});
+	  $("#saveProperties").on('click', function(){
+	  		localStorage.msgmode = $(".weui-select").val();
+	  		localStorage.noticeTitle = $("#noticeTitle").val();
+	  		localStorage.sendto = $("#sendto").val();
+	  		localStorage.author = $("#author").val();
+	  		localStorage.school = $("#school").val();
+	  		localStorage.weuiAgree = $("#weuiAgree").val();
+	  		localStorage.noticeRemark = $("#remark").val();
+	  		localStorage.noticeRemarkUrl = $("#remarkurl").val();
+	  		$.toast("保存成功", "ok");
+	  });
+	  
+	  $("#weuiAgree").change(function(){
+	  	$("#remark").val("请点击此消息，发送回折");
+	  	$("#remarkurl").val("www.baidu.com");
+	  });
+	  
+/*      $("#sendto").select({
+        title: "发送对象",
+        multi: true,
+        min: 1,
+        max: 3,
+        items: [
+          {
+            title: "绑定用户",
+            value: 1,
+            description: "绑定了微信号的用户"
+          },
+          {
+            title: "领导",
+            value: 2,
+            description: "额外的数据2"
+          },
+          {
+            title: "其他",
+            value: 3,
+            description: "额外的数据3"
+          }
+        ],
+        beforeClose: function(values, titles) {
+          if(values.indexOf("6") !== -1) {
+            $.toast("不能选睡觉", "cancel");
+            return false;
+          }
+          return true;
+        },
+        onChange: function(d) {
+          console.log(this, d);
+        },
+        onClose: function (d) {
+          console.log('close')
+        }
+      });*/
+</script>
+</script>
+
+<script type="text/html" id="tpl_studentExamList">
+</script>
+
+<script type="text/html" id="tpl_studentScoreList">
+</script>
+
+<script type="text/html" id="tpl_studentScoreChart" >
+<div class="page" id="page">
+<script type="text/javascript">
+	myChart = echarts.init(document.getElementById('page'));
+	var studentExamList = $("#tpl_studentExamList").data("studentExamList");
+	var option = initCanvas(studentExamList);
+	console.log(JSON.stringify(option));
+	myChart.setOption(option);
+	$(window).resize(function() {
+		var option = myChart.getOption();
+		myChart = echarts.init(document.getElementById('page'));
+		myChart.setOption(option);
+	});
+	
+	
+/*      $(document.body).pullToRefresh().on("pull-to-refresh", function() {
+        setTimeout(function() {
+          $("#time").text(new Date);
+          $(document.body).pullToRefreshDone();
+        }, 2000);
+      });
+    
+    
+       loadingStudentId = studentExamList[0].studentid;
+       loadingNextStudent =false;*/
+       //$(document.body).infinite().on("infinite", function() {
+     	/*$(document.body).on("click", function() {
+      	getNextStudentExamList();
+      });*/
+    
+</script>
+</script>
+
+<script id="studentExamListMode" type="text/html">	
+<div class="page">
+    <div class="page__hd">
+       <h1 class="page_title">{{studentName}}的成绩单</h1>
+       <div class="weui-cell__ft chartButton" data-id="studentScoreChart">
+       		<a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary">成绩走势图</a>
+       </div>
+    </div>
+	{{each list as value i}}
+ 	<a class="weui-cell weui-cell_access examItem" 
+ 		data-id="studentScoreList"  
+		data-studentid="{{value.studentid}}" data-studentname="{{value.studentname}}" data-examname="{{value.examName}}"
+ 		data-chinese="{{value.chinese}}" data-chineserank="{{value.chineserank}}"
+ 		data-math="{{value.math}}" data-mathrank="{{value.mathrank}}"
+ 		data-english="{{value.english}}" data-englishrank="{{value.englishrank}}"
+ 		data-political="{{value.political}}" data-politicalrank="{{value.politicalrank}}"
+ 		data-history="{{value.history}}" data-historyrank="{{value.historyrank}}"
+ 		data-geo="{{value.geo}}" data-georank="{{value.georank}}"
+ 		data-totalscore="{{value.totalscore}}" data-rank="{{value.rank}}"
+ 		href="javascript:;">
+        <div class="weui-cell__bd ">
+            <p>{{value.examName}}</p>
+        </div>
+        <div class="weui-cell__ft">详情</div>
+    </a>
+     {{/each}}
+    <div class="page__ft">
+        <a href="javascript:home()"><img src="./images/icon_footer_link.png" /></a>
+    </div>
+</div>
+<script type="text/javascript">
+		$('.examItem').on('click', function(){
+			$examItem=$(this);
+			var id=$examItem.data("id");
+			var studentid = $examItem.data("studentid");
+			var studentname = $examItem.data("studentname");
+			var examname =$examItem.data("examname");
+			var chinese = $examItem.data("chinese");
+			var math = $examItem.data("math");
+			var english = $examItem.data("english");
+			var political= $examItem.data("political");
+			var history = $examItem.data("history");
+			var geo = $examItem.data("geo");
+			var totalscore = $examItem.data("totalscore");
+			
+			var chineserank = $examItem.data("chineserank");
+			var mathrank = $examItem.data("mathrank");
+			var englishrank = $examItem.data("englishrank");
+			var politicalrank= $examItem.data("politicalrank");
+			var historyrank = $examItem.data("historyrank");
+			var georank = $examItem.data("georank");
+			var rank = $examItem.data("rank");
+			var params =
+			{
+				studentid:studentid,
+				studentname:studentname,
+				examname:examname,
+				chinese:chinese,
+				math:math,
+				english:english,
+				political:political,
+				history:history,
+				geo:geo,
+				totalscore:totalscore,
+				chineserank:chineserank,
+				mathrank:mathrank,
+				englishrank:englishrank,
+				politicalrank:politicalrank,
+				historyrank:historyrank,
+				georank:georank,
+				rank:rank}
+			
+			var html = template('studentScoreListMode', params);
+			$("#tpl_studentScoreList").html(html);
+			window.pageManager.go(id);
+        });
+        
+        $(".chartButton").on('click', function(){
+        	$chartButton=$(this);
+        	$("#tpl_studentScoreChart").data("params","2222");
+			var id=$chartButton.data("id");
+			window.pageManager.go(id);
+        });
+</script>
+</script>
+
+<script id="studentScoreListMode" type="text/html">
+	<div class="page">
+    <div class="page__hd">
+       <h1 class="page_title">{{studentname}}的成绩单</h1>
+        <p class="page__desc">{{examname}}</p>
+    </div>
+			<div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>语文:{{chinese}}</p>
+                </div>
+                <div class="weui-cell__bd">
+                	<p>排名:{{chineserank}}</p>
+                </div>
+            </div>
+            
+			<div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>数学:{{math}}</p>
+                </div>
+                <div class="weui-cell__bd">
+                	<label>排名:{{mathrank}}</label>
+                </div>
+            </div>
+
+			<div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>英语:{{english}}</p>
+                </div>
+                <div class="weui-cell__bd">
+                	<label>排名:{{englishrank}}</label>
+                </div>
+            </div>
+            
+			<div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>政治:{{political}}</p>
+                </div>
+                <div class="weui-cell__bd">
+                	<label>排名:{{politicalrank}}</label>
+                </div>
+            </div>
+            
+			<div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>历史:{{history}}</p>
+                </div>
+                <div class="weui-cell__bd">
+                	<p>排名:{{historyrank}}</p>
+                </div>
+            </div>
+           
+			<div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>地理:{{geo}}</p>
+                </div>
+                <div class="weui-cell__bd">
+                	<p>排名:{{georank}}</p>
+                </div>
+            </div>
+            
+			<div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>总分:{{totalscore}}</p>
+                </div>
+                <div class="weui-cell__bd">
+                	<p>排名:{{rank}}</p>
+                </div>
+            </div>
+            
+    </div>
+</script>
+
+<script id="searchResultMode" type="text/html">
+			{{each list as value i}}
+            <div class="weui-cell weui-cell_access">
+                <div class="weui-cell__bd weui-cell_primary">
+                    <a class="weui-cell weui-cell_access studentItem" data-id="studentExamList" data-studentid="{{value.id}}"
+                    	data-studentname="{{value.chname}}" href="javascript:;">
+                            <div class="weui-cell__bd">
+                                <p>{{value.chname}}</p>
+                            </div>
+                            <div class="weui-cell__ft"></div>
+                     </a>
+                </div>
+            </div>
+            {{/each}}
+<script type="text/javascript">
+		$('.studentItem').on('click', function(){
+			$studentItem=$(this);
+			$.showLoading();
+            getStudentExamList($studentItem)
+        });
+        
+        function getStudentExamList($studentItem)
+        {
+        	var studentId = $studentItem.data('studentid');
+        	var studentName = $studentItem.data('studentname');
+        	 url ="/jeewx/scoreController.do?scoreList&studentId="+studentId+"&callback=?";
+			 $.getJSON(url,
+			 function(data)
+			 {
+			 	var id = $studentItem.data('id');
+			 	if(data.length!=0)
+			 	{
+			 		var params = {list:data,studentName:studentName};
+			 		var html = template('studentExamListMode', params);
+			 		$("#tpl_studentExamList").html(html);
+			 		$("#tpl_studentExamList").data("studentExamList",JSON.stringify(data));
+			 		$.hideLoading();
+			 		window.pageManager.go(id);
+			 	}
+			 });
+        }
+</script>
+</script>
+
+</html>

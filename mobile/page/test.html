@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<img id="qrcode" alt=""/>
+	</body>
+	
+	<script src="../js/zepto.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$.ajax(
+			 {
+			 	type: 'GET',
+			 	url:"/jeewx/wechatRobotController.do?initChatMenu",
+			 	success:function(data) 
+			 	{
+			 		var url = "https://login.weixin.qq.com/qrcode/";
+			 		var uuid = JSON.parse(data).msg;
+			 		var timestamp = (new Date()).valueOf();
+			 		url = url+uuid+"?_="+timestamp+"&t=webwx";
+			 		console.log(url);
+			 		console.log(uuid);
+			 		$("#qrcode").attr("src",url);
+			 		
+				 	return;
+			 	}
+			 });
+		});
+	</script>
+</html>
+

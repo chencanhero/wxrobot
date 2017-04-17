@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>历史成绩查询</title>
+	<link rel="stylesheet" href="../css/weui.min.css" />
+    <link rel="stylesheet" href="../css/my-weui.css"/>
+	</head>
+	<body>
+		<div class="container" id="container">
+		</div>
+	</body>	
+	
+<script src="../js/zepto.min.js"></script>
+<script src="../js/example.js"></script>
+<script src="../js/template.js"></script>
+<script src="../js/tools.js"></script>
+<script src="../js/jquery-weui.js"></script>
+<script src="../js/fastclick.js"></script>
+<script src="../js/echarts.common.min.js"></script>
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+
+<script type="application/javascript">
+		 $(function(){
+		 	var code = getUrlVar("code");
+		 	url ="/jeewx/scoreController.do?getScoreListByOpenId&code="+code;
+        	 $.showLoading("加载中");
+			 $.ajax(
+			 {
+			 	type: 'GET',
+			 	url:url,
+			 	success:function(json) 
+			 	{
+			 		localStorage.json=null;
+			 		var data = JSON.parse(json);
+			 		if(data.length!=0)
+			 		{
+				 		var params = {list:data,studentName:data[0].studentname};
+				 		var html = template('studentExamListMode', params);
+				 		$("#container").html(html);
+				 		$.hideLoading();
+				 		localStorage.json = json;
+			 		}
+				 	return;
+			 	}
+			 });
+		 });
+		 
+		function getUrlVars(){
+            var vars = [], hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for(var i = 0; i < hashes.length; i++){
+                hash = hashes[i].split('=');
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return vars;
+        }
+         function getUrlVar(name)
+         {
+            return getUrlVars()[name];
+          }
+
+</script>
+
+
+<script type="text/html" id="tpl_studentExamList">
+</script>
+
+<script type="text/html" id="tpl_studentScoreList">
+</script>
+
+<script id="studentExamListMode" type="text/html">	
+<div class="page">
+    <div class="page__hd" style="text-align:center">
+       <h1 class="page_title">{{studentName}}的成绩单</h1>
+       <div class="weui-cell__ft chartButton" data-id="studentScoreChart">
+       		<a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary">成绩走势图</a>
+       </div>
+    </div>
+	{{each list as value i}}
+ 	<a class="weui-cell weui-cell_access examItem" 
+ 		data-id="studentScoreList"  
+		data-studentid="{{value.studentid}}" data-studentname="{{value.studentname}}" data-examname="{{value.examName}}"
+ 		data-chinese="{{value.chinese}}" data-chineserank="{{value.chineserank}}"
+ 		data-math="{{value.math}}" data-mathrank="{{value.mathrank}}"
+ 		data-english="{{value.english}}" data-englishrank="{{value.englishrank}}"
+ 		data-political="{{value.political}}" data-politicalrank="{{value.politicalrank}}"
+ 		data-history="{{value.history}}" data-historyrank="{{value.historyrank}}"
+ 		data-geo="{{value.geo}}" data-georank="{{value.georank}}"
+ 		data-totalscore="{{value.totalscore}}" data-rank="{{value.rank}}"
+ 		href="javascript:;">
+        <div class="weui-cell__bd ">
+            <p>{{value.examName}}</p>
+        </div>
+        <div class="weui-cell__ft">详情</div>
+    </a>
+     {{/each}}
+    <div class="page__ft">
+        <a href="javascript:home()"><img src="../images/icon_footer_link.png" /></a>
+    </div>
+</div>
+<script type="text/javascript">
+		$('.examItem').on('click', function(){
+			$examItem=$(this);
+			localStorage.score=null;
+			var id=$examItem.data("id");
+			var studentid = $examItem.data("studentid");
+			var studentname = $examItem.data("studentname");
+			var examname =$examItem.data("examname");
+			var chinese = $examItem.data("chinese");
+			var math = $examItem.data("math");
+			var english = $examItem.data("english");
+			var political= $examItem.data("political");
+			var history = $examItem.data("history");
+			var geo = $examItem.data("geo");
+			var totalscore = $examItem.data("totalscore");
+			
+			var chineserank = $examItem.data("chineserank");
+			var mathrank = $examItem.data("mathrank");
+			var englishrank = $examItem.data("englishrank");
+			var politicalrank= $examItem.data("politicalrank");
+			var historyrank = $examItem.data("historyrank");
+			var georank = $examItem.data("georank");
+			var rank = $examItem.data("rank");
+			var params =
+			{
+				studentid:studentid,
+				studentname:studentname,
+				examname:examname,
+				chinese:chinese,
+				math:math,
+				english:english,
+				political:political,
+				history:history,
+				geo:geo,
+				totalscore:totalscore,
+				chineserank:chineserank,
+				mathrank:mathrank,
+				englishrank:englishrank,
+				politicalrank:politicalrank,
+				historyrank:historyrank,
+				georank:georank,
+				rank:rank}
+				localStorage.score = JSON.stringify(params);
+				location.href = "historyScore.html";
+        });
+        
+        $(".chartButton").on('click', function(){
+        	var studentExamList = localStorage.json;
+        	console.log(studentExamList);
+        	location.href = "scoreLine.html";
+        });
+</script>
+</script>
+
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+	</body>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+
+<script type="application/javascript">
+	$(function()
+	{
+		var appid = "wx4efa7b599ad2d6a3";
+		var secret = "9dd92e8675e691edcc5ca69d94de77f2";
+		var url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="+appid+"&secret="+secret+"&callback=canxin";
+		url ="http://localhost:8080/jeewx/studentController.do?searchStudent&studentName=%E9%99%88&callback=?";
+		 $.getJSON(url,
+		 function(data)
+		 {
+		 	alert(JSON.stringify(data));
+		 });
+	});
+</script>
+</html>

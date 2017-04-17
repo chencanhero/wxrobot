@@ -1,0 +1,192 @@
+        function addZero(obj)
+        {
+        	if (obj < 10) return "0" + obj; else return obj
+    	}
+        
+        function getCurrentDate()
+        {
+        	var mydate = new Date();
+	        var curr_year = mydate.getFullYear();
+	        var curr_month = mydate.getMonth() + 1;
+	        var curr_day = mydate.getDate();
+	        var curr_H = mydate.getHours();
+	        var curr_M = mydate.getMinutes();
+	        var curr_S = mydate.getSeconds();
+	        var monthDate = curr_year + "-" + addZero(curr_month) + "-" + addZero(curr_day);
+	        return monthDate;
+        }
+        
+        function getCurrentDateStr()
+        {
+        	var mydate = new Date();
+	        var curr_year = mydate.getFullYear();
+	        var curr_month = mydate.getMonth() + 1;
+	        var curr_day = mydate.getDate();
+	        var curr_H = mydate.getHours();
+	        var curr_M = mydate.getMinutes();
+	        var curr_S = mydate.getSeconds();
+	        var monthDate = curr_year + "年" + curr_month + "月" + curr_day+"日";
+	        return monthDate;
+        }
+        
+		function diffDays()
+		{
+			var beginTime=getCurrentDate();
+		    var endTime="2017-06-07";
+		    var aDate, oDate1, oDate2, days; 
+			aDate = beginTime.split("-"); 
+			oDate1 = new Date(aDate[0], aDate[1], aDate[2]); 
+			aDate = endTime.split("-"); 
+			oDate2 = new Date(aDate[0] , aDate[1] , aDate[2]); 
+			days = parseInt(Math.abs(oDate1 - oDate2) / 1000 / 60 / 60 / 24);
+			return days;
+		}
+
+		function checkStrIsNullOrNot(v)
+		{
+			if (v !== null && v!== undefined && v !== "") 
+			{
+				return false;
+			} 
+			return true;
+		}
+		
+	function initCanvas(studentExamList)
+	{
+		var studentName = studentExamList[0].studentname;
+		var studentid = studentExamList[0].studentid;
+	 	var examArray=new Array();
+	 	var chineseArray=new Array();
+	 	var mathArray=new Array();
+	 	var englishArray=new Array();
+	 	var politicalArray=new Array();
+	 	var historyArray=new Array();
+	 	var geoArray=new Array();
+	 	var totalArray=new Array();
+	 	
+	    for(var i=0;i<studentExamList.length;i++)
+	    {
+	        var examid = studentExamList[studentExamList.length-1-i].examid;
+	        	examid = examid.substring(0,4)+"."+examid.substring(4,6);
+	        	examArray[i]=examid;
+	        	chineseArray[i]=studentExamList[studentExamList.length-1-i].chineserank;
+	        	mathArray[i]=studentExamList[studentExamList.length-1-i].mathrank;
+	        	englishArray[i]=studentExamList[studentExamList.length-1-i].englishrank;
+	        	politicalArray[i]=studentExamList[studentExamList.length-1-i].politicalrank;
+	        	historyArray[i]=studentExamList[studentExamList.length-1-i].historyrank;
+	        	geoArray[i]=studentExamList[studentExamList.length-1-i].georank;
+	        	totalArray[i]=studentExamList[studentExamList.length-1-i].rank;
+	       }
+		
+	
+		option = {
+			title: {
+				text: studentName+'的成绩'
+			},
+			tooltip: {
+				trigger: 'axis'
+			},
+			backgroundColor:'#f8f8f8',
+			legend: {
+				data: ['语文', '数学', '英语', '政治', '历史','地理','总分'],
+				selected: {
+				    '语文': false,
+				    '数学': false,
+				    '英语': false,
+				    '政治': false,
+				    '历史': false,
+				    '地理': false,
+				    '总分': true
+				}
+			},
+			toolbox: {
+				feature: {
+					saveAsImage: {}
+				}
+			},
+			grid: {
+				left: '3%',
+				right: '4%',
+				bottom: '3%',
+				containLabel: true
+			},
+			xAxis: [{
+				type: 'category',
+				boundaryGap: false,
+				data: examArray,
+				zlevel:4
+			}],
+			yAxis: [{
+				type: 'value',
+				inverse:true
+			}],
+			series: [{
+				name: '语文',
+				type: 'line',
+				stack: '排名',
+				areaStyle: {
+					normal: {}
+				},
+				data: chineseArray
+			}, {
+				name: '数学',
+				type: 'line',
+				stack: '排名',
+				areaStyle: {
+					normal: {}
+				},
+				data: mathArray
+			}, {
+				name: '英语',
+				type: 'line',
+				stack: '排名',
+				areaStyle: {
+					normal: {}
+				},
+				data: englishArray
+			}, {
+				name: '政治',
+				type: 'line',
+				stack: '排名',
+				areaStyle: {
+					normal: {}
+				},
+				data: politicalArray
+			}, 
+				{
+				name: '历史',
+				type: 'line',
+				stack: '排名',
+				areaStyle: {
+					normal: {}
+				},
+				data: historyArray
+			}, 
+				{
+				name: '地理',
+				type: 'line',
+				stack: '排名',
+				areaStyle: {
+					normal: {}
+				},
+				data: geoArray
+			}, 
+				{
+				name: '总分',
+				type: 'line',
+				stack: '排名',
+				label: {
+					normal: {
+						show: true,
+						position: 'top'
+					}
+				},
+				areaStyle: {
+					normal: {}
+				},
+				data: totalArray
+				
+			}]
+		};
+		return option;
+	}

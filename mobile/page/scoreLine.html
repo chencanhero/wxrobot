@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<title>成绩走势图</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../css/weui.min.css" />
+    	<link rel="stylesheet" href="../css/my-weui.css"/>
+      	<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+	</head>
+	<body ontouchstart>
+		 <div class="container" id="container">
+		 	<div class="page">
+ 				<div id="main" style="width:100%;height:100%;"></div>
+ 			</div>
+ 		</div>
+	</body>
+	<script src="../js/zepto.min.js"></script>
+	<script src="../js/template.js"></script>
+	<script src="../js/tools.js"></script>
+	<script src="../js/jquery-weui.js"></script>
+	<script src="../js/fastclick.js"></script>
+	<script src="../js/echarts.common.min.js"></script>
+	<script type="application/javascript">
+		$(function(){
+			myChart = echarts.init(document.getElementById('main'));
+			var studentExamList = localStorage.json;
+			console.log(studentExamList);
+			var option = initCanvas(JSON.parse(studentExamList));
+			console.log(JSON.stringify(option));
+			myChart.setOption(option);
+		});
+		
+		$(window).resize(function() {
+			var option = myChart.getOption();
+			myChart = echarts.init(document.getElementById('main'));
+			myChart.setOption(option);
+		});
+	</script>
+</html>
